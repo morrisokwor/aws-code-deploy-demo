@@ -1,0 +1,39 @@
+name: Java Gradle Build and AWS EC2 Deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+#       - name: SSH into EC2 instance
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.EC2_HOST }}
+#           username: ${{ secrets.EC2_USERNAME }}
+#           key: ${{ secrets.EC2_PRIVATE_KEY }}
+#           passphrase: ${{ secrets.EC2_PRIVATE_KEY_PASSPHRASE }}
+
+#           # Commands to run on the EC2 instance
+#           script: |
+#             # Replace with the desired commands for deployment
+#             sudo systemctl stop your-service
+#             sudo rm -rf /var/www/html/*
+#             sudo cp build/libs/my-app.jar /var/www/html/
+#             sudo systemctl start your-service
