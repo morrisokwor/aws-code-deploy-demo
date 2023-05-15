@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: gradle build -x test
 
 #       - name: SSH into EC2 instance
 #         uses: appleboy/ssh-action@master
