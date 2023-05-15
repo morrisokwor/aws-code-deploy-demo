@@ -27,10 +27,10 @@ jobs:
         run: sudo apt-get install openssh-client -y
         
       - name: Copy build file to EC2 instance
-        run: scp -i "${{ secrets.EC2_PRIVATE_KEY }}" build/libs/spring-boot-aws-0.0.1-SNAPSHOT.jar "${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:"
+        run: scp -i ${{ secrets.EC2_PRIVATE_KEY }} build/libs/spring-boot-aws-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/opt
       
       - name: Run application on EC2 instance
-        run: ssh -i "${{ secrets.EC2_PRIVATE_KEY }}" "${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}" "sudo kill \$(sudo lsof -t -i:8080) && java -jar spring-boot-aws-0.0.1-SNAPSHOT.jar"
+        run: ssh -i ${{ secrets.EC2_PRIVATE_KEY }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo kill \$(sudo lsof -t -i:8080) && java -jar spring-boot-aws-0.0.1-SNAPSHOT.jar"
 
 
 #       - name: SSH into EC2 instance
